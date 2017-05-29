@@ -40,15 +40,20 @@ public class ComboBoxEditingSupportTest {
 
 	@Test
 	public void test() {
+		LOGGER.info("Start.");
 		strToD.put("one", 1d);
 		strToD.put("three", 3d);
 		strToD.put("seven", 7d);
 		strToD.put("fourteen", 14d);
 
+		LOGGER.info("Starting display.");
 		display = new Display();
+		LOGGER.info("Starting shell.");
 		shell = new Shell(display);
+		LOGGER.info("Starting table viewer.");
 		final TableViewer tableViewer = new TableViewer(shell);
 
+		LOGGER.info("Creating es.");
 		final ComboBoxEditingSupport<String, Double> ed = new ComboBoxEditingSupport<String, Double>(tableViewer,
 				String.class, Double.class) {
 			@Override
@@ -67,6 +72,7 @@ public class ComboBoxEditingSupportTest {
 				return "The double: " + value;
 			}
 		};
+		LOGGER.info("Asserting.");
 		assertNull(ed.getComboBoxCellEditor().getValue());
 		ed.setItems(Lists.newArrayList(strToD.values()));
 
@@ -76,6 +82,7 @@ public class ComboBoxEditingSupportTest {
 		ed.getComboBoxCellEditor().setValue(null);
 		assertFalse(ed.getComboBoxCellEditor().isValueValid());
 		assertNull(ed.getComboBoxCellEditor().getValue());
+		LOGGER.info("End.");
 	}
 
 }
