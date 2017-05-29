@@ -9,6 +9,15 @@ import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A {@link TextEditingSupport} that further restricts its content to values
+ * that can be converted to integers.
+ *
+ * @author Olivier Cailloux
+ *
+ * @param <E>
+ *            the type of elements returned by the underlying column viewer.
+ */
 public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 
 	@SuppressWarnings("unused")
@@ -24,6 +33,7 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 		final VerifyListener listener = e -> e.doit = e.text.matches("[0-9]*");
 		final TextCellEditor textCellEditor = getTextCellEditor();
 		((Text) textCellEditor.getControl()).addVerifyListener(listener);
+		/** Here we forbid empty strings. */
 		setFirstLevelValidator(v -> v.isEmpty() ? "Integer required." : null);
 	}
 

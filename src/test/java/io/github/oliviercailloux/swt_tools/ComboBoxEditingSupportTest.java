@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 
@@ -25,7 +26,7 @@ public class ComboBoxEditingSupportTest {
 
 	private Shell shell;
 
-	final HashBiMap<String, Double> strToD = HashBiMap.create();
+	final BiMap<String, Double> strToD = HashBiMap.create();
 
 	public void fireView() {
 		shell.pack();

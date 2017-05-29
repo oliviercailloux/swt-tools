@@ -9,6 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+/**
+ * Provides static methods to create a table viewer column given a table viewer,
+ * table column, and (special kinds of) editing support.
+ *
+ * @author Olivier Cailloux
+ *
+ */
 public class JFace {
 
 	@SuppressWarnings("unused")

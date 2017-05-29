@@ -32,10 +32,12 @@ import org.slf4j.LoggerFactory;
  * remove the validator directly on the underlying cell editor.
  * </p>
  * <p>
- * The user must override {@link #getValueTyped(E)} to provide values
- * corresponding to elements; and {@link #setValueTyped(E, String)} to set the
+ * The user must override {@link #getValueTyped(Object) #getValueTyped(E)} to
+ * provide values corresponding to elements; and
+ * {@link #setValueTyped(Object, Object) #setValueTyped(E, String)} to set the
  * values sent by the text cell editor back to the model. The user may also
- * override {@link #canEditTyped(E)} (<code>true</code> by default).
+ * override {@link #canEditTyped(Object) #canEditTyped(E)} (<code>true</code> by
+ * default).
  * </p>
  *
  * @author Olivier Cailloux

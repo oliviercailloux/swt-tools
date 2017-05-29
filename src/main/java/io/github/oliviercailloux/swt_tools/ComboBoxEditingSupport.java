@@ -40,13 +40,15 @@ import com.google.common.collect.ImmutableList;
  * change the first-level validator.
  * </p>
  * <p>
- * The user of this class must override {@link #getValueTyped(E)} to provide
- * values corresponding to elements; and {@link #setValueTyped(E, V)} to set the
- * values sent by the cell editor back to the model. The user may also override
- * {@link #canEditTyped(E)} (<code>true</code> by default), and
- * {@link #toString(V)} (which by default returns the empty string if the value
- * is <code>null</code>, and otherwise uses {@link Object#toString()}). The
- * latter is used to show the entries in the combo box to the end-user.
+ * The user of this class must override {@link #getValueTyped(Object)
+ * #getValueTyped(E)} to provide values corresponding to elements; and
+ * {@link #setValueTyped(Object, Object) #setValueTyped(E, V)} to set the values
+ * sent by the cell editor back to the model. The user may also override
+ * {@link #canEditTyped(Object) #canEditTyped(E)} (<code>true</code> by
+ * default), and {@link #toString(Object) #toString(V)} (which by default
+ * returns the empty string if the value is <code>null</code>, and otherwise
+ * uses {@link Object#toString()}). The latter is used to show the entries in
+ * the combo box to the end-user.
  * </p>
  *
  * @author Olivier Cailloux

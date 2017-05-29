@@ -21,14 +21,16 @@ import org.eclipse.jface.viewers.EditingSupport;
  * </p>
  * <p>
  * The underlying column viewer is set at construction time. The underlying cell
- * editors are set thanks to the {@link #getCellEditorTyped(E)} method (to be
- * overriden).
+ * editors are set thanks to the {@link #getCellEditorTyped(Object)
+ * #getCellEditorTyped(E)} method (to be overriden).
  * </p>
  * <p>
  * User must also override {@link #getValueTyped(Object) getValueTyped(E)} to
- * provide values corresponding to elements; and {@link #setValueTyped(E, V)} to
- * set the values sent by the cell editor back to the model. The user may also
- * override {@link #canEditTyped(E)} (<code>true</code> by default).
+ * provide values corresponding to elements; and
+ * {@link #setValueTyped(Object, Object) #setValueTyped(E, V)} to set the values
+ * sent by the cell editor back to the model. The user may also override
+ * {@link #canEditTyped(Object) #canEditTyped(E)} (<code>true</code> by
+ * default).
  * </p>
  *
  * @author Olivier Cailloux
