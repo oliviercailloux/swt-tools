@@ -7,3 +7,5 @@ Provides (mainly) two classes to help with EditingSupport in JFace: TextEditingS
 
 See the javadoc for both classes, and see the class JFace for easier usage of those classes in a ColumnViewer.
 
+API is _not_ stable. Comments and bug reports are welcome.
+
