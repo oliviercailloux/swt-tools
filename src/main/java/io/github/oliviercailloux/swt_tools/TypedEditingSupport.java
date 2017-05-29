@@ -2,8 +2,6 @@ package io.github.oliviercailloux.swt_tools;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Function;
-
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
@@ -27,10 +25,10 @@ import org.eclipse.jface.viewers.EditingSupport;
  * overriden).
  * </p>
  * <p>
- * User must also override {@link #getValueTyped(E)} to provide values
- * corresponding to elements; and {@link #setValueTyped(E, V)} to set the values
- * sent by the cell editor back to the model. The user may also override
- * {@link #canEditTyped(E)} (<code>true</code> by default).
+ * User must also override {@link #getValueTyped(Object) getValueTyped(E)} to
+ * provide values corresponding to elements; and {@link #setValueTyped(E, V)} to
+ * set the values sent by the cell editor back to the model. The user may also
+ * override {@link #canEditTyped(E)} (<code>true</code> by default).
  * </p>
  *
  * @author Olivier Cailloux
