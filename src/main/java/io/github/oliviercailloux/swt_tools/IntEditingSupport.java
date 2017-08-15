@@ -26,15 +26,17 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 	public IntEditingSupport(ColumnViewer viewer, Class<E> classOfElements) {
 		super(viewer, classOfElements);
 		/**
-		 * The following regular expression allows for empty strings. (We will
-		 * prevent empty strings later.) If using [0-9]+, on linux-gtk the
-		 * backspace key gets disabled.
+		 * The following regular expression allows for empty strings. (We will prevent
+		 * empty strings later.) If using [0-9]+, on linux-gtk the backspace key gets
+		 * disabled. Note allowing minus signs only at start of this string does not
+		 * guarantee confinment to start of whole string, as the validated string may be
+		 * a substring (the part just recently typed). I think.
 		 */
-		final VerifyListener listener = e -> e.doit = e.text.matches("[0-9]*");
+		final VerifyListener listener = e -> e.doit = e.text.matches("[-−]?[0-9]*");
 		final TextCellEditor textCellEditor = getTextCellEditor();
 		((Text) textCellEditor.getControl()).addVerifyListener(listener);
-		/** Here we forbid empty strings. */
-		setFirstLevelValidator(v -> v.isEmpty() ? "Integer required." : null);
+		/** Here we forbid empty strings, strings equal to "-", … */
+		setFirstLevelValidator(v -> !v.matches("[-−]?[0-9]+") ? "Integer required." : null);
 	}
 
 	/**
@@ -42,8 +44,7 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 	 * Get the value to set to the editor.
 	 * </p>
 	 * <p>
-	 * This method is simply a better typed equivalent to
-	 * {@link #getValue(Object)}.
+	 * This method is simply a better typed equivalent to {@link #getValue(Object)}.
 	 * </p>
 	 *
 	 * @param element
@@ -63,10 +64,10 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 	 * Sets the input validator for this cell editor.
 	 * </p>
 	 * <p>
-	 * The validator is given the (integer) value to be validated, and must
-	 * return a string indicating whether the given value is valid;
-	 * <code>null</code> means valid, and non-<code>null</code> means invalid,
-	 * with the result being the error message to display to the end user.
+	 * The validator is given the (integer) value to be validated, and must return a
+	 * string indicating whether the given value is valid; <code>null</code> means
+	 * valid, and non-<code>null</code> means invalid, with the result being the
+	 * error message to display to the end user.
 	 * </p>
 	 * <p>
 	 * This is simply a better-typed version of {@link #setValidator(Function)}.
@@ -82,10 +83,9 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 	/**
 	 * <p>
 	 * Sets the new value on the given element. Note that implementers need to
-	 * ensure that <code>getViewer().update(element, null)</code> or similar
-	 * methods are called, either directly or through some kind of listener
-	 * mechanism on the implementer's model, to cause the new value to appear in
-	 * the viewer.
+	 * ensure that <code>getViewer().update(element, null)</code> or similar methods
+	 * are called, either directly or through some kind of listener mechanism on the
+	 * implementer's model, to cause the new value to appear in the viewer.
 	 * </p>
 	 *
 	 * <p>
