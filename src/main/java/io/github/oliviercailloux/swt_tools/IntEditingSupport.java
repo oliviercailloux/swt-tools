@@ -28,15 +28,15 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 		/**
 		 * The following regular expression allows for empty strings. (We will prevent
 		 * empty strings later.) If using [0-9]+, on linux-gtk the backspace key gets
-		 * disabled. Note allowing minus signs only at start of this string does not
-		 * guarantee confinment to start of whole string, as the validated string may be
-		 * a substring (the part just recently typed). I think.
+		 * disabled. Note that allowing minus signs only at start of this string does
+		 * not guarantee confinment to start of whole string, as the validated string
+		 * may be a substring (the part just recently typed).
 		 */
-		final VerifyListener listener = e -> e.doit = e.text.matches("[-−]?[0-9]*");
+		final VerifyListener listener = e -> e.doit = e.text.matches("[-]?[0-9]*");
 		final TextCellEditor textCellEditor = getTextCellEditor();
 		((Text) textCellEditor.getControl()).addVerifyListener(listener);
 		/** Here we forbid empty strings, strings equal to "-", … */
-		setFirstLevelValidator(v -> !v.matches("[-−]?[0-9]+") ? "Integer required." : null);
+		setFirstLevelValidator(v -> !v.matches("[-]?[0-9]+") ? "Integer required." : null);
 	}
 
 	/**
