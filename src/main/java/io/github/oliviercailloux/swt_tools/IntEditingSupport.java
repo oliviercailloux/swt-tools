@@ -3,15 +3,31 @@ package io.github.oliviercailloux.swt_tools;
 import java.util.function.Function;
 
 import org.eclipse.jface.viewers.ColumnViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>
  * A {@link TextEditingSupport} that further restricts its content to values
  * that can be converted to integers.
+ * </p>
+ * <p>
+ * The underlying control does not constrain the user while typing, only when
+ * validating. Thus the user is free to type invalid characters (such as
+ * letters). The reason for not using verify listeners (that constrain the user
+ * while typing) is that, IMHO, it constrains the user without really helping
+ * her.
+ * <ul>
+ * <li>It prevents copy/paste when the string copied includes an invalid
+ * character (example: the user wants to paste the string “12455,32” and intends
+ * to delete the last part);</li>
+ * <li>if user types erroneously a mistaken character, then hits backspace by
+ * reflex, the backspace will eat the wrong character;</li>
+ * <li>the verify listener will allow pasting “-4244” next to “3411” (which
+ * produces an invalid integer) but will refuse pasting “3411-4244”, a behavior
+ * that is difficult for the user to understand.</li>
+ * </ul>
+ * </p>
  *
  * @author Olivier Cailloux
  *
@@ -25,16 +41,6 @@ public abstract class IntEditingSupport<E> extends TextEditingSupport<E> {
 
 	public IntEditingSupport(ColumnViewer viewer, Class<E> classOfElements) {
 		super(viewer, classOfElements);
-		/**
-		 * The following regular expression allows for empty strings. (We will prevent
-		 * empty strings later.) If using [0-9]+, on linux-gtk the backspace key gets
-		 * disabled. Note that allowing minus signs only at start of this string does
-		 * not guarantee confinment to start of whole string, as the validated string
-		 * may be a substring (the part just recently typed).
-		 */
-		final VerifyListener listener = e -> e.doit = e.text.matches("[-]?[0-9]*");
-		final TextCellEditor textCellEditor = getTextCellEditor();
-		((Text) textCellEditor.getControl()).addVerifyListener(listener);
 		/** Here we forbid empty strings, strings equal to "-", … */
 		setFirstLevelValidator(v -> !v.matches("[-]?[0-9]+") ? "Integer required." : null);
 	}
